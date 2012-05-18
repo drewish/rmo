@@ -38,7 +38,7 @@ function rmo_etc_block_view($delta = '') {
     }
 
     if ($html) {
-      $block['subject'] = t('Upcomming Gigs');
+      $block['subject'] = t('Upcoming Gigs');
       $block['content'] = $html;
     }
   }
