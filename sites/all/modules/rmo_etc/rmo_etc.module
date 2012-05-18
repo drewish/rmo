@@ -5,3 +5,42 @@
  */
 
 include_once 'rmo_etc.features.inc';
+
+/**
+ * Implements hook_block_info().
+ */
+function rmo_etc_block_info() {
+  // This example comes from node.module.
+  $blocks['giglist_gigs'] = array(
+    'info' => t('Giglist Gigs'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function rmo_etc_block_view($delta = '') {
+  // This example is adapted from node.module.
+  $block = array();
+
+  if ($delta == 'giglist_gigs') {
+    $cid = 'giglist_output';
+    if ($cache = cache_get($cid)) {
+      $html = $cache->data;
+    }
+    else if ($raw = file_get_contents('http://hmbnyc.com/gigs/rmo.php')) {
+      $html = filter_xss_admin($raw);
+      cache_set($cid, $html);
+    }
+
+    if ($html) {
+      $block['subject'] = t('Upcomming Gigs');
+      $block['content'] = $html;
+    }
+  }
+
+  return $block;
+}
