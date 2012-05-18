@@ -33,7 +33,8 @@ function rmo_etc_block_view($delta = '') {
     }
     else if ($raw = file_get_contents('http://hmbnyc.com/gigs/rmo.php')) {
       $html = filter_xss_admin($raw);
-      cache_set($cid, $html);
+      // Cache it for an hour.
+      cache_set($cid, $html, REQUEST_TIME + 60 * 60);
     }
 
     if ($html) {
