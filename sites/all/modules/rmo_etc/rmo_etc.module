@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the rmo_etc feature.
+ */
+
+include_once 'rmo_etc.features.inc';
