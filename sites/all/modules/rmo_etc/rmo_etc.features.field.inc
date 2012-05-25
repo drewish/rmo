@@ -1842,13 +1842,6 @@ function rmo_etc_field_default_fields() {
           'type' => 'file_default',
           'weight' => '6',
         ),
-        'teaser' => array(
-          'label' => 'above',
-          'module' => 'filefield',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '6',
-        ),
         'token' => array(
           'label' => 'above',
           'moduke' => 'file',
@@ -2251,13 +2244,6 @@ function rmo_etc_field_default_fields() {
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_default',
-          'weight' => '7',
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'module' => 'filefield',
-          'settings' => array(),
-          'type' => 'hidden',
           'weight' => '7',
         ),
         'token' => array(
@@ -2666,13 +2652,6 @@ function rmo_etc_field_default_fields() {
           'type' => 'file_default',
           'weight' => '5',
         ),
-        'teaser' => array(
-          'label' => 'above',
-          'module' => 'filefield',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '5',
-        ),
         'token' => array(
           'label' => 'above',
           'moduke' => 'file',
@@ -2802,13 +2781,6 @@ function rmo_etc_field_default_fields() {
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_default',
-          'weight' => '8',
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'module' => 'filefield',
-          'settings' => array(),
-          'type' => 'hidden',
           'weight' => '8',
         ),
         'token' => array(

@@ -12,7 +12,6 @@ dependencies[] = features
 dependencies[] = field_group
 dependencies[] = field_sql_storage
 dependencies[] = file
-dependencies[] = filefield
 dependencies[] = list
 dependencies[] = mediaelement
 dependencies[] = node
