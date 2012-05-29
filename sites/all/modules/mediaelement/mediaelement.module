@@ -75,6 +75,7 @@ function mediaelement_field_formatter_info() {
       'height' => variable_get('mediaelement_video_default_height', '385'),
       'download_link' => variable_get('mediaelement_video_default_download_link', FALSE),
       'download_text' => variable_get('mediaelement_video_default_download_text', t('Download')),
+      'preload' => variable_get('mediaelement_video_default_preload', 'auto'),
     ),
   );
 
@@ -87,6 +88,7 @@ function mediaelement_field_formatter_info() {
       'height' => variable_get('mediaelement_audio_default_height', '30'),
       'download_link' => variable_get('mediaelement_audio_default_download_link', FALSE),
       'download_text' => variable_get('mediaelement_audio_default_download_text', t('Download')),
+      'preload' => variable_get('mediaelement_audio_default_preload', 'auto'),
     ),
   );
 
@@ -124,6 +126,7 @@ function mediaelement_field_formatter_view($entity_type, $entity, $field, $insta
       '#attributes' => array(
         'src' => file_create_url($src),
         'class' => $class,
+        'preload' => $display['settings']['preload'],
       ),
       '#settings' => $settings,
       '#attached' => array(
@@ -220,6 +223,18 @@ function mediaelement_field_formatter_settings_form($field, $instance, $view_mod
     '#title' => t('Download Link Text'),
     '#type' => 'textfield',
     '#default_value' => $settings['download_text'],
+  );
+
+  $element['preload'] = array(
+    '#title' => t('Preload'),
+    '#description' => t('Provide a hint to the user agent about whether it should pre-load the media resource.'),
+    '#type' => 'radios',
+    '#options' => array(
+      'none' => t('None: Do not preload the resource.'),
+      'metadata' => t('Metadata: Load only the resource metadata (dimensions, first frame, track list, duration, etc). May cause full preload.'),
+      'auto' => t('Automatic: Preload is possible.'),
+    ),
+    '#default_value' => $settings['preload'],
   );
 
   return $element;
