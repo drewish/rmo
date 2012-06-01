@@ -1790,11 +1790,10 @@ function rmo_etc_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'moduke' => 'file',
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_default',
-          'weight' => '6',
+          'weight' => '5',
         ),
         'full' => array(
           'label' => 'above',
@@ -1929,7 +1928,7 @@ function rmo_etc_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '6',
+          'weight' => '9',
         ),
         'full' => array(
           'label' => 'above',
@@ -2194,11 +2193,10 @@ function rmo_etc_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'moduke' => 'file',
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_default',
-          'weight' => '7',
+          'weight' => '6',
         ),
         'full' => array(
           'label' => 'above',
@@ -2333,7 +2331,7 @@ function rmo_etc_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '5',
+          'weight' => '8',
         ),
         'full' => array(
           'label' => 'above',
@@ -2460,9 +2458,16 @@ function rmo_etc_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'hidden',
-          'module' => 'file',
-          'settings' => array(),
-          'type' => 'file_default',
+          'module' => 'mediaelement',
+          'settings' => array(
+            'controls' => TRUE,
+            'download_link' => FALSE,
+            'download_text' => 'Download',
+            'height' => '30',
+            'preload' => 'auto',
+            'width' => '300',
+          ),
+          'type' => 'mediaelement_audio',
           'weight' => '0',
         ),
         'full' => array(
@@ -2600,11 +2605,17 @@ function rmo_etc_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'moduke' => 'file',
-          'module' => 'file',
-          'settings' => array(),
-          'type' => 'file_default',
-          'weight' => '5',
+          'module' => 'mediaelement',
+          'settings' => array(
+            'controls' => TRUE,
+            'download_link' => FALSE,
+            'download_text' => 'Download',
+            'height' => '30',
+            'preload' => 'auto',
+            'width' => '300',
+          ),
+          'type' => 'mediaelement_audio',
+          'weight' => '4',
         ),
         'full' => array(
           'label' => 'above',
@@ -2731,11 +2742,10 @@ function rmo_etc_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'moduke' => 'file',
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_default',
-          'weight' => '8',
+          'weight' => '7',
         ),
         'full' => array(
           'label' => 'above',
@@ -3003,9 +3013,9 @@ function rmo_etc_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'text',
+          'module' => 'list',
           'settings' => array(),
-          'type' => 'text_default',
+          'type' => 'list_default',
           'weight' => '2',
         ),
         'full' => array(

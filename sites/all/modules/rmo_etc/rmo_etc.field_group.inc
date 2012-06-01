@@ -20,17 +20,12 @@ function rmo_etc_field_group_info() {
   $field_group->mode = 'default';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Arranger',
-    'weight' => '4',
-    'children' => array(
-      0 => 'field_arrangement_file',
-      1 => 'field_midi',
-      2 => 'field_song_original_file',
-      3 => 'field_song_sheet_music',
-    ),
-    'format_type' => 'div',
+    'label' => 'Learn it!',
+    'weight' => '10',
+    'children' => array(),
+    'format_type' => 'hidden',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'formatter' => '',
       'instance_settings' => array(),
     ),
   );
