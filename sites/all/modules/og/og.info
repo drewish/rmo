@@ -38,9 +38,9 @@ files[] = includes/og.admin.inc
 files[] = includes/og.info.inc
 files[] = includes/og.views.inc
 
-; Information added by drupal.org packaging script on 2012-05-02
-version = "7.x-2.0-alpha2+66-dev"
+; Information added by drupal.org packaging script on 2012-05-31
+version = "7.x-2.0-alpha3"
 core = "7.x"
 project = "og"
-datestamp = "1335962157"
+datestamp = "1338447070"
 
