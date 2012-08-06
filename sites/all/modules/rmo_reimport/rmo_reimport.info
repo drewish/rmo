@@ -1,0 +1,12 @@
+name = "Re-Import RMO Content"
+description = "Bring in some missing content."
+package = "Development"
+core = 7.x
+hidden = TRUE
+
+dependencies[] = migrate
+dependencies[] = migrate_d2d
+dependencies[] = migrate_extras
+dependencies[] = date_migrate
+
+files[] = rmo_reimport.module

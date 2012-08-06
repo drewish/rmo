@@ -38,7 +38,7 @@ class MigrateDestinationVotingapi extends MigrateDestination {
     migrate_instrument_start(__METHOD__);
     
     foreach ($ids as $id) {
-      $votes[]->vote_id = $id;
+      $votes[]['vote_id'] = $id;
     }
     votingapi_delete_votes($votes);
     
@@ -62,6 +62,12 @@ class MigrateDestinationVotingapi extends MigrateDestination {
    */
   public function import(stdClass $entity, stdClass $row) {
     $this->prepare($entity, $row);
+
+    // Votes have to be assigned to an entity.
+    if (empty($entity->entity_id)) {
+      watchdog('VotingAPI Import', 'Skipped import due to empty entity_id for vote import: @serial', array('@serial' => json_encode($row)), WATCHDOG_ERROR);
+      return FALSE;
+    }
 
     if (isset($entity->timestamp)) {
       $entity->timestamp = Migration::timestamp($entity->timestamp);
@@ -93,9 +99,8 @@ class MigrateDestinationVotingapi extends MigrateDestination {
    * We're done with importing votes, recalculate the results.
    */
   function postImport() {
-    $this->importedIds = array_unique($this->importedIds);
-
     foreach ($this->importedIds as $entity_type => $entity_ids) {
+      $this->importedIds = array_unique($this->importedIds);
       foreach ($entity_ids as $entity_id) {
         votingapi_recalculate_results($entity_type, $entity_id, TRUE);
       }

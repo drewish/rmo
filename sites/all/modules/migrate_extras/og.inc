@@ -42,7 +42,8 @@ class MigrateDestinationOGMembership extends MigrateDestination {
    */
   public function rollback(array $id) {
     migrate_instrument_start('OGMembership Rollback');
-    og_ungroup($id['gid'], 'user', $id['uid']);
+    $account = user_load($id['destid2']);
+    og_ungroup($id['destid1'], 'user', $account);
     migrate_instrument_stop('OGMembership Rollback');
   }
 

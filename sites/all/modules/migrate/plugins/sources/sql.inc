@@ -95,7 +95,7 @@ class MigrateSourceSQL extends MigrateSource {
    *  Options applied to this source.
    */
   public function __construct(SelectQueryInterface $query, array $fields = array(),
-       SelectQueryInterface $count_query = NULL, array $options = array()) {
+      SelectQueryInterface $count_query = NULL, array $options = array()) {
     parent::__construct($options);
     $this->originalQuery = $query;
     $this->query = clone $query;
@@ -179,7 +179,8 @@ class MigrateSourceSQL extends MigrateSource {
       if (is_array($row)) {
         foreach ($row as $field_name => $field_value) {
           // Lower case, because Drupal forces lowercase on fetch
-          $fields[drupal_strtolower($field_name)] = t('Example Content: ') . $field_value;
+          $fields[drupal_strtolower($field_name)] = t('Example Content: !value',
+            array('!value' => $field_value));
         }
       }
     }
@@ -305,7 +306,8 @@ class MigrateSourceSQL extends MigrateSource {
         $this->query->addField($alias, 'needs_update', 'migrate_map_needs_update');
       }
       // 3. If we are using highwater marks, also include rows above the mark.
-      if (isset($this->highwaterField['name'])) {
+      //    But, include all rows if the highwater mark is not set.
+      if (isset($this->highwaterField['name']) && $this->activeMigration->getHighwater() !== '') {
         if (isset($this->highwaterField['alias'])) {
           $highwater = $this->highwaterField['alias'] . '.' . $this->highwaterField['name'];
         }

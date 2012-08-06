@@ -27,6 +27,7 @@ files[] = plugins/destinations/table.inc
 files[] = plugins/destinations/table_copy.inc
 files[] = plugins/destinations/menu.inc
 files[] = plugins/destinations/menu_links.inc
+files[] = plugins/destinations/statistics.inc
 files[] = plugins/sources/csv.inc
 files[] = plugins/sources/files.inc
 files[] = plugins/sources/json.inc
@@ -45,9 +46,9 @@ files[] = tests/plugins/destinations/term.test
 files[] = tests/plugins/destinations/user.test
 files[] = tests/plugins/sources/xml.test
 
-; Information added by drupal.org packaging script on 2012-05-03
-version = "7.x-2.3+34-dev"
+; Information added by drupal.org packaging script on 2012-08-06
+version = "7.x-2.4+37-dev"
 core = "7.x"
 project = "migrate"
-datestamp = "1336004993"
+datestamp = "1344212915"
 

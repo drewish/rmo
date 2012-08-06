@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * Implementation of hook_migrate_api().
+ */
+function rmo_reimport_migrate_api() {
+  $api = array(
+    'api' => 2,
+  );
+  return $api;
+}
+
+class RmoMeetingMigration extends DrupalNode6Migration {
+  // I don't want dynaic migrations for this...
+  static public function isDynamic() {
+    return FALSE;
+  }
+
+  public function __construct() {
+    $args = array(
+      // What we're calling this.
+      'machine_name' => 'RmoMeeting',
+      // I added a new database key in settings.php:
+      'source_connection' => 'legacy',
+      'source_version' => 6,
+      // Our node types:
+      'source_type' => 'monthly_meeting',
+      'destination_type' => 'monthly_meeting',
+    );
+    parent::__construct($args);
+
+    // Specify we
+    $this->systemOfRecord = Migration::DESTINATION;
+    $this->addFieldMapping('nid', 'nid');
+
+    // Now map our fields.
+    $this->addSimpleMappings(array(
+      'field_agenda',
+      'field_agenda:format',
+      'field_date',
+      'field_date:value2',
+      'field_facilitator',
+      'field_location',
+      'field_meeting_minutes',
+      'field_meeting_minutes:format',
+    ));
+  }
+}
+
+
+class RmoPracticeMigration extends DrupalNode6Migration {
+  // I don't want dynaic migrations for this...
+  static public function isDynamic() {
+    return FALSE;
+  }
+
+  public function __construct() {
+    $args = array(
+      // What we're calling this.
+      'machine_name' => 'RmoPractice',
+      // I added a new database key in settings.php:
+      'source_connection' => 'legacy',
+      'source_version' => 6,
+      // Our node types:
+      'source_type' => 'practice_notes',
+      'destination_type' => 'practice_notes',
+    );
+    parent::__construct($args);
+
+    // Specify we
+    $this->systemOfRecord = Migration::DESTINATION;
+    $this->addFieldMapping('nid', 'nid');
+
+    // Now map our fields.
+    $this->addSimpleMappings(array(
+      'field_date',
+      'field_date:value2',
+      'field_facilitator',
+      'field_practicenotes',
+      'field_practicenotes:format',
+      'field_songs',
+    ));
+  }
+}
+

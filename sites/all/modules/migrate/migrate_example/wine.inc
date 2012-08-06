@@ -36,6 +36,16 @@ abstract class AdvancedExampleMigration extends Migration {
 
     // A format of our own, for testing migration of formats
     $this->basicFormat = filter_format_load('migrate_example');
+
+    // We can do shared field mappings in the common class
+    if (module_exists('path')) {
+        $this->addFieldMapping('path')
+             ->issueGroup(t('DNM'));
+        if (module_exists('pathauto')) {
+          $this->addFieldMapping('pathauto')
+               ->issueGroup(t('DNM'));
+        }
+      }
   }
 }
 
@@ -181,12 +191,15 @@ class WineFileCopyMigration extends AdvancedExampleMigration {
     $this->addUnmigratedDestinations(array('fid', 'uid', 'timestamp',
       'destination_dir', 'destination_file', 'source_dir', 'preserve_files',
       'file_replace'));
+    $this->removeFieldMapping('path');
+    $this->removeFieldMapping('pathauto');
   }
 }
 
 /**
- * Migration class to test importing from a BLOB column into a file entity. Typically,
- * one would use this OR import into a File Field (@see MigrateExampleOracleNode).
+ * Migration class to test importing from a BLOB column into a file entity.
+ * Typically, one would use this OR import into a File Field.
+ * @see MigrateExampleOracleNode()
  */
 class WineFileBlobMigration extends AdvancedExampleMigration {
   public function __construct() {
@@ -225,6 +238,11 @@ class WineFileBlobMigration extends AdvancedExampleMigration {
     // Unmapped destination fields
     $this->addUnmigratedDestinations(array('fid', 'timestamp',
       'destination_dir', 'file_replace', 'preserve_files'));
+
+    // Our base class mapped these since most migrations use them, but not this
+    // one, so remove them
+    $this->removeFieldMapping('path');
+    $this->removeFieldMapping('pathauto');
   }
 }
 
@@ -331,7 +349,8 @@ class WineUserMigration extends AdvancedExampleMigration {
     // Unmapped source fields
 
     // Unmapped destination fields
-    $this->addUnmigratedDestinations(array('theme', 'timezone', 'language', 'is_new'));
+    $this->addUnmigratedDestinations(array('theme', 'timezone', 'language',
+      'is_new', 'field_migrate_example_favbeers', 'role_names', 'data'));
   }
 
   public function prepare(stdClass $account, stdClass $row) {
@@ -397,8 +416,9 @@ class WineProducerMigration extends AdvancedExampleMigration {
          ->sourceMigration('WineUser')
          ->defaultValue(1);
     $this->addFieldMapping('migrate_example_wine_regions', 'region')
-         ->sourceMigration('WineRegion')
-         ->arguments(array('source_type' => 'tid'));
+         ->sourceMigration('WineRegion');
+    $this->addFieldMapping('migrate_example_wine_regions:source_type')
+         ->defaultValue('tid');
     $this->addFieldMapping('body', 'body');
     $this->addFieldMapping('body:summary', 'excerpt');
     $this->addFieldMapping('sticky')
@@ -407,10 +427,13 @@ class WineProducerMigration extends AdvancedExampleMigration {
     // No unmapped source fields
 
     // Unmapped destination fields
-    $this->addUnmigratedDestinations(array('is_new', 'name', 'created', 'changed',
+    $this->addUnmigratedDestinations(array('is_new', 'created', 'changed',
       'status', 'promote', 'revision', 'language', 'revision_uid', 'log', 'tnid',
-      'body:format', 'body:language', 'migrate_example_wine_regions:source_type',
-      'migrate_example_wine_regions:create_term', 'comment'));
+      'body:format', 'body:language', 'migrate_example_wine_regions:create_term',
+      'comment'));
+    if (module_exists('statistics')) {
+      $this->addUnmigratedDestinations(array('totalcount', 'daycount', 'timestamp'));
+    }
   }
 }
 
@@ -495,6 +518,17 @@ class WineProducerXMLMigration extends XMLMigration {
       'is_new', 'body:summary', 'body:format', 'body:language',
       'migrate_example_wine_regions:source_type', 'migrate_example_wine_regions:create_term',
       'comment'));
+    if (module_exists('path')) {
+      $this->addFieldMapping('path')
+           ->issueGroup(t('DNM'));
+      if (module_exists('pathauto')) {
+        $this->addFieldMapping('pathauto')
+             ->issueGroup(t('DNM'));
+      }
+    }
+    if (module_exists('statistics')) {
+      $this->addUnmigratedDestinations(array('totalcount', 'daycount', 'timestamp'));
+    }
   }
 }
 
@@ -586,6 +620,17 @@ class WineProducerMultiXMLMigration extends XMLMigration {
       'is_new', 'body:summary', 'body:format', 'body:language',
       'migrate_example_wine_regions:source_type', 'migrate_example_wine_regions:create_term',
       'comment'));
+    if (module_exists('path')) {
+      $this->addFieldMapping('path')
+           ->issueGroup(t('DNM'));
+      if (module_exists('pathauto')) {
+        $this->addFieldMapping('pathauto')
+             ->issueGroup(t('DNM'));
+      }
+    }
+    if (module_exists('statistics')) {
+      $this->addUnmigratedDestinations(array('totalcount', 'daycount', 'timestamp'));
+    }
   }
 }
 
@@ -661,6 +706,17 @@ class WineProducerXMLPullMigration extends XMLMigration {
       'is_new', 'body:summary', 'body:format', 'body:language',
       'migrate_example_wine_regions:source_type', 'migrate_example_wine_regions:create_term',
       'comment'));
+    if (module_exists('path')) {
+      $this->addFieldMapping('path')
+           ->issueGroup(t('DNM'));
+      if (module_exists('pathauto')) {
+        $this->addFieldMapping('pathauto')
+             ->issueGroup(t('DNM'));
+      }
+    }
+    if (module_exists('statistics')) {
+      $this->addUnmigratedDestinations(array('totalcount', 'daycount', 'timestamp'));
+    }
   }
 }
 
@@ -672,6 +728,8 @@ class WineWineMigration extends AdvancedExampleMigration {
     $this->dependencies = array('WineVariety', 'WineRegion',
       'WineBestWith', 'WineUser', 'WineProducer');
 
+    // You can add a 'track_last_imported' option to the map, to record the
+    // timestamp of when each item was last imported in the map table.
     $this->map = new MigrateSQLMap($this->machineName,
       array(
         'wineid' => array(
@@ -682,7 +740,9 @@ class WineWineMigration extends AdvancedExampleMigration {
           'alias' => 'w',
         )
       ),
-      MigrateDestinationNode::getKeySchema()
+      MigrateDestinationNode::getKeySchema(),
+      'default',
+      array('track_last_imported' => TRUE)
     );
 
     $query = db_select('migrate_example_wine', 'w')
@@ -743,15 +803,18 @@ class WineWineMigration extends AdvancedExampleMigration {
     // migration (so the tid can be looked up in the map), and tell the term
     // field handler that it is receiving tids instead of names
     $this->addFieldMapping('migrate_example_wine_varieties', 'variety')
-         ->sourceMigration('WineVariety')
-         ->arguments(array('source_type' => 'tid'));
+         ->sourceMigration('WineVariety');
+    $this->addFieldMapping('migrate_example_wine_varieties:source_type')
+         ->defaultValue('tid');
     $this->addFieldMapping('migrate_example_wine_regions', 'region')
-         ->sourceMigration('WineRegion')
-         ->arguments(array('source_type' => 'tid'));
+         ->sourceMigration('WineRegion');
+    $this->addFieldMapping('migrate_example_wine_regions:source_type')
+         ->defaultValue('tid');
     $this->addFieldMapping('migrate_example_wine_best_with', 'best_with')
          ->separator(',')
-         ->sourceMigration('WineBestWith')
-         ->arguments(array('source_type' => 'tid'));
+         ->sourceMigration('WineBestWith');
+    $this->addFieldMapping('migrate_example_wine_best_with:source_type')
+         ->defaultValue('tid');
     $this->addFieldMapping('field_migrate_example_wine_ratin', 'rating');
     $this->addFieldMapping('field_migrate_example_top_vintag', 'best_vintages');
 
@@ -786,18 +849,19 @@ class WineWineMigration extends AdvancedExampleMigration {
     // Unmapped destination fields
     $this->addUnmigratedDestinations(array('revision_uid', 'status', 'promote',
       'revision', 'log', 'language', 'tnid', 'is_new', 'body:format',
-      'body:language', 'migrate_example_wine_regions:source_type',
-      'migrate_example_wine_regions:create_term', 'comment',
-      'migrate_example_wine_varieties:source_type', 'migrate_example_wine_varieties:create_term',
-      'migrate_example_wine_best_with:source_type', 'migrate_example_wine_best_with:create_term',
+      'body:language', 'migrate_example_wine_regions:create_term', 'comment',
+      'migrate_example_wine_varieties:create_term', 'migrate_example_wine_best_with:create_term',
       'field_migrate_example_image:language', 'field_migrate_example_image:preserve_files',
       'field_migrate_example_image:source_dir', 'field_migrate_example_image:destination_dir',
       'field_migrate_example_image:destination_file', 'field_migrate_example_image:file_class',
     ));
+    if (module_exists('statistics')) {
+      $this->addUnmigratedDestinations(array('totalcount', 'daycount', 'timestamp'));
+    }
   }
 
   protected function addTitlePrefix($source_title) {
-    return t('review: ') . $source_title;
+    return t('review: !title', array('!title' => $source_title));
   }
 
   // TIP: Implement a prepareRow() method to manipulate the source row between
@@ -817,6 +881,10 @@ class WineWineMigration extends AdvancedExampleMigration {
 
     // We can have multiple files per node, so we pull them here along with
     // their related data (alt/title).
+/*
+ * This is disabled - see http://drupal.org/node/1679798. To demonstrate
+ * remote file migration, edit the migrate_example_wine_files table and enter
+ * the URLs of known remote image files, then enable this code.
     $result = db_select('migrate_example_wine_files', 'f')
               ->fields('f', array('url', 'image_alt', 'image_title'))
               ->condition('wineid', $source_id)
@@ -826,7 +894,7 @@ class WineWineMigration extends AdvancedExampleMigration {
       $current_row->image_alt[] = $row->image_alt;
       $current_row->image_title[] = $row->image_title;
     }
-
+*/
     // We could also have used this function to decide to skip a row, in cases
     // where that couldn't easily be done through the original query. Simply
     // return FALSE in such cases.
@@ -879,6 +947,8 @@ class WineCommentMigration extends AdvancedExampleMigration {
     // Unmapped destination fields
     $this->addUnmigratedDestinations(array('thread', 'language',
       'comment_body:format', 'comment_body:language'));
+    $this->removeFieldMapping('path');
+    $this->removeFieldMapping('pathauto');
   }
 }
 
@@ -910,6 +980,8 @@ class WineTableMigration extends AdvancedExampleMigration {
     $this->addFieldMapping('drupal_int', 'field2');
 
     $this->addUnmigratedDestinations(array('recordid'));
+    $this->removeFieldMapping('path');
+    $this->removeFieldMapping('pathauto');
   }
 }
 
@@ -1015,6 +1087,9 @@ class WineUpdatesMigration extends AdvancedExampleMigration {
       'field_migrate_example_image:file_class', 'field_migrate_example_image:file_replace',
       'field_migrate_example_image:preserve_files', 'field_migrate_example_image:destination_file',
       'field_migrate_example_image:source_dir', 'field_migrate_example_top_vintag'));
+    if (module_exists('statistics')) {
+      $this->addUnmigratedDestinations(array('totalcount', 'daycount', 'timestamp'));
+    }
   }
 }
 
@@ -1058,7 +1133,10 @@ class WineCommentUpdatesMigration extends AdvancedExampleMigration {
     $this->addFieldMapping('created');
     $this->addFieldMapping('changed');
     $this->addFieldMapping('homepage');
-    $this->addUnmigratedDestinations(array('thread', 'language'));
+    $this->addUnmigratedDestinations(array('thread', 'language',
+      'comment_body:format', 'comment_body:language'));
+    $this->removeFieldMapping('path');
+    $this->removeFieldMapping('pathauto');
   }
 }
 
@@ -1144,7 +1222,9 @@ class WineUserUpdatesMigration extends AdvancedExampleMigration {
     $this->addFieldMapping('signature');
     $this->addFieldMapping('signature_format');
     $this->addFieldMapping('init');
-    $this->addUnmigratedDestinations(array('theme', 'timezone', 'language', 'picture'));
+    $this->addUnmigratedDestinations(array('theme', 'timezone', 'language',
+      'picture', 'is_new', 'field_migrate_example_favbeers'));
+    $this->removeFieldMapping('path');
   }
 
   public function prepare(stdClass $account, stdClass $row) {

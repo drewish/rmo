@@ -116,7 +116,7 @@ function migrate_schema_log() {
 }
 
 /**
- * Implementation of hook_uninstall().
+ * Implements hook_uninstall().
  * Drop map/message tables, in case implementing classes did not.
  */
 function migrate_uninstall() {
@@ -129,6 +129,13 @@ function migrate_uninstall() {
   }
   foreach (db_find_tables('migrate_message_%') as $tablename) {
     db_drop_table($tablename);
+  }
+
+  // Remove any file_usage entries we've written
+  if (db_table_exists('file_usage')) {
+    db_delete('file_usage')
+      ->condition('module', 'migrate')
+      ->execute();
   }
 }
 
@@ -230,7 +237,7 @@ function migrate_update_7004() {
  */
 function migrate_update_7005() {
   $ret = array();
-  if(!db_table_exists('migrate_log')) {
+  if (!db_table_exists('migrate_log')) {
     $ret[] = t('Create migrate_log table');
     db_create_table('migrate_log', migrate_schema_log());
     $ret[] = t('Remove historic columns from migrate_status table');
@@ -325,7 +332,7 @@ function migrate_update_7008() {
         $keys = array();
         $index = 1;
         foreach ($row as $field => $value) {
-          if (substr($field, 0, 8) == 'sourceid') {
+          if (drupal_substr($field, 0, 8) == 'sourceid') {
             $keys['sourceid' . $index++] = $value;
           }
         }
@@ -353,4 +360,25 @@ function migrate_update_7201() {
     implementation to reflect these changes. Please see
     <a href="@doc">Handling files in Drupal 7</a> for more information',
     array('@doc' => 'http://drupal.org/node/1540106'));
+}
+
+/**
+ * Add rollback_action field to all map tables
+ */
+function migrate_update_7202() {
+  $ret = array();
+  foreach (db_find_tables('migrate_map_%') as $tablename) {
+    if (!db_field_exists($tablename, 'rollback_action')) {
+      db_add_field($tablename, 'rollback_action', array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Flag indicating what to do for this item on rollback',
+      ));
+    }
+  }
+  $ret[] = t('Added rollback_action column to all map tables');
+  return $ret;
 }

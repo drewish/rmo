@@ -7,13 +7,13 @@ features[field][] = "node-migrate_example_pathauto-body"
 features[node][] = "migrate_example_pathauto"
 files[] = migrate_extras_pathauto.migrate.inc
 name = "Migrate Extras Pathauto Example"
-package = "Features"
+package = "Migrate Examples"
 project = "migrate_extras_pathauto_example"
 version = "7.x-2.1-beta1"
 
-; Information added by drupal.org packaging script on 2012-05-01
-version = "7.x-2.3+4-dev"
+; Information added by drupal.org packaging script on 2012-08-04
+version = "7.x-2.4+8-dev"
 core = "7.x"
 project = "migrate_extras"
-datestamp = "1335831971"
+datestamp = "1344040227"
 

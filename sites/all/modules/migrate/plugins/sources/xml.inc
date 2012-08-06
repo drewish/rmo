@@ -956,6 +956,17 @@ class MigrateSourceXML extends MigrateSource {
   }
 
   /**
+   * Returns the active Url.
+   *
+   * @return string
+   */
+  public function activeUrl() {
+    if ($this->activeUrl) {
+      return $this->sourceUrls[$this->activeUrl];
+    }
+  }
+
+  /**
    * Return a count of all available source records.
    */
   public function computeCount() {
@@ -1039,7 +1050,7 @@ class MigrateSourceXML extends MigrateSource {
         // Increment the activeUrl so we try to load the next source
         $this->activeUrl = $this->activeUrl + 1;
       }
-      
+
       $this->reader = new $this->readerClass($this->sourceUrls[$this->activeUrl], $this->elementQuery, $this->idQuery);
       $this->reader->rewind();
 
