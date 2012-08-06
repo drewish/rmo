@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Tests for media entity controllers.
@@ -7,15 +8,21 @@
 /**
  * Test media type creation and management.
  */
-class MediaEntityTest extends MediaTestHelper {
+class MediaEntityTest extends DrupalWebTestCase {
 
   public static function getInfo() {
     return array(
       'name' => 'Media entity',
       'description' => 'Tests media entity handling',
       'group' => 'Media',
-      'dependencies' => array('file_entity'),
+      'dependencies' => array('ctools'),
     );
+  }
+
+  function setUp() {
+    parent::setUp('media');
+    // Nice, TDD FTW.  #totalsarcasm
+    variable_set('simpletest_verbose', TRUE);
   }
 
   /**

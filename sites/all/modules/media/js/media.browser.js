@@ -1,7 +1,3 @@
-/**
- * @file
- * Provides default functions for the media browser
- */
 
 (function ($) {
 namespace('Drupal.media.browser');
@@ -27,6 +23,8 @@ Drupal.behaviors.experimentalMediaBrowser = {
 
     $('.media-browser-tab').each( Drupal.media.browser.validateButtons );
 
+    Drupal.media.browser.selectErrorTab();
+
   }
   // Wait for additional params to be passed in.
 };
@@ -48,22 +46,29 @@ Drupal.media.browser.validateButtons = function() {
   // have their click action trigger the click action of the corresonding
   // "OK" and "Cancel" buttons that are outside the IFRAME. media.css contains
   // CSS rules that hide the outside buttons.
-
-  // If a submit button is present, another round-trip to the server is needed
-  // before the user's selection is finalized. For these cases, when the form's
-  // real Submit button is clicked, the server either returns another form for
-  // the user to fill out, or else a completion page that contains or sets the
+  //
+  // We don't add a "Submit" button if the form already has one, since in these
+  // cases, another round-trip to the server is needed before the user's
+  // selection is finalized. For these cases, when the form's real Submit
+  // button is clicked, the server either returns another form for the user to
+  // fill out, or else a completion page that contains or sets the
   // Drupal.media.browser.selectedMedia variable. If the latter, then
   // Drupal.media.popups.mediaBrowser.mediaBrowserOnLoad() auto-triggers the
   // "OK" button action to finalize the selection and remove the IFRAME.
-
-  // We need to check for the fake submit/cancel buttons that are used on
-  // non-form based pane content. On these items we need to bind the clicks
-  // so that media can be selected or the window can be closed. This is still a
-  // hacky approach, but it is a step in the right direction.
-
-  $('a.button.fake-submit', this).once().bind('click', Drupal.media.browser.submit);
-  $('a.button.fake-cancel', this).once().bind('click', Drupal.media.browser.submit);
+  //
+  // @todo An alternate, less hacky solution would be most welcome.
+  if (!($('.form-submit', this).length > 0)) {
+    $('<a class="button button-yes fake-ok">' + Drupal.t('Submit') + '</a>').appendTo(this).bind('click', Drupal.media.browser.submit);
+    if (!($('.fake-cancel', this).length > 0)) {
+      $('<a class="button button-no fake-cancel">' + Drupal.t('Cancel') + '</a>').appendTo(this).bind('click', Drupal.media.browser.submit);
+    }
+  } else if (!($('.fake-cancel', this).length > 0)) {
+    var parent = $('.form-actions', this);
+    if (!parent.length) {
+      parent = $('form > div', this);
+    }
+    $('<a class="button button-no fake-cancel">' + Drupal.t('Cancel') + '</a>').appendTo(parent).bind('click', Drupal.media.browser.submit);
+  }
 };
 
 Drupal.media.browser.submit = function () {
@@ -71,13 +76,9 @@ Drupal.media.browser.submit = function () {
   var buttons = $(parent.window.document.body).find('#mediaBrowser').parent('.ui-dialog').find('.ui-dialog-buttonpane button');
   if ($(this).hasClass('fake-cancel')) {
     buttons[1].click();
-  }
-  else {
+  } else {
     buttons[0].click();
   }
-
-  // Return false to prevent the fake link "click" from continuing.
-  return false;
 }
 
 Drupal.media.browser.selectMedia = function (selectedMedia) {
@@ -97,5 +98,22 @@ Drupal.media.browser.resizeIframe = function (event) {
   var h = $('body').height();
   $(parent.window.document).find('#mediaBrowser').height(h);
 };
+
+Drupal.media.browser.selectErrorTab = function() {
+  //Find the ID of a tab with an error in it
+  var errorTabID = $('#media-browser-tabset')
+    .find('.error')
+    .parents('.media-browser-tab')
+    .attr('id');
+
+  if (errorTabID !== undefined) {
+    //Find the Tab Link with errorTabID
+    var tab = $('a[href="#' + errorTabID + '"]');
+    //Find the index of the tab
+    var index = $('#media-browser-tabset a').index(tab);
+    //Select the tab
+    $('#media-browser-tabset').tabs('select', index)
+  }
+}
 
 }(jQuery));

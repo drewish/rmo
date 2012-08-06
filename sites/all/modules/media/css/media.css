@@ -71,6 +71,17 @@
   list-style: none;
 }
 
+/** This is a massive hack. There must be a better way. See media.fields.inc **/
+
+.media-widget .fid {
+  display:none;
+}
+
+.media-widget a.button + a.button {
+  margin-left: 15px;
+  display: none;
+}
+
 /* @end */
 
 /* @group media item */
@@ -162,23 +173,13 @@
   overflow: hidden;
 }
 
-.view-content #media-browser-library-list {
-  margin: 0;
-}
-
-.media-list-thumbnails{
-  overflow: hidden;
-  width: 100%;
+.media-display-thumbnails .media-list-thumbnails {
+  margin: 0 -10px;
 }
 
 .media-list-thumbnails > li {
   float: left;
   list-style: none;
-}
-
-.media-list-thumbnails .media-item {
-  margin-left: 0;
-  margin-top: 0;
 }
 
 .media-list-thumbnails .form-type-checkbox {
@@ -222,7 +223,7 @@ div#media-browser .throbber {
   height:100%;
   width:100%;
   position:absolute;
-  background: transparent url('images/loading.gif') no-repeat center center;
+  background: transparent url('../images/loading.gif') no-repeat center center;
 }
 
 #media-browser .ui-tabs-panel {
@@ -260,7 +261,7 @@ div#media-browser .throbber {
   margin-right: 5px;
 }
 
-a.button {
+#media-browser a.button {
   display: inline-block;
   line-height: 21px;
 }
@@ -318,6 +319,10 @@ a.button {
   clear: both;
 }
 
+.media-thumbnails-select {
+  float: left;
+}
+
 #edit-options .form-item-format label {
   display: inline;
 }
@@ -354,7 +359,7 @@ body.page-media-format-form {
   display:none;
 }
 
-a.button {
+#media-browser-page a.button {
   display: inline-block;
   margin: 10px 5px 0 0;
 }

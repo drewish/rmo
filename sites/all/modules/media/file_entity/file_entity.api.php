@@ -12,6 +12,8 @@
  *   An array whose keys are file type names and whose values are arrays
  *   describing the file type, with the following key/value pairs:
  *   - label: The human-readable name of the file type.
+ *   - claim callback: The name of the function that returns if a given file is
+ *     of this type. See hook_file_type_TYPE_claim() for details.
  *   - default view callback: (optional) The name of the function that returns a
  *     drupal_render() array for displaying the file. Used when there are no
  *     administrator configured file formatters, or none of the configured ones
@@ -27,7 +29,7 @@
  *     ['bundles'][TYPE]['admin'] entry for the 'file' entity type, thereby
  *     controlling the path at which Field UI pages are attached for this file
  *     type, and which users may access them. Defaults to attaching the Field UI
- *     pages to the admin/structure/file-types/manage/TYPE path and requiring
+ *     pages to the admin/config/media/file-types/manage/TYPE path and requiring
  *     'administer site configuration' permission. See hook_entity_info() for
  *     details about this array. This value can also be set to NULL to suppress
  *     Field UI pages from attaching at all for this file type.
@@ -51,6 +53,16 @@ function hook_file_type_info() {
  */
 function hook_file_type_info_alter(&$info) {
   // @todo Add example.
+}
+
+/**
+ * @todo Add documentation.
+ *
+ * Note: This is not really a hook. The function name is manually specified via
+ * 'claim callback' in hook_file_type_info(), with this recommended
+ * callback name pattern.
+ */
+function hook_file_type_TYPE_claim($file, $type) {
 }
 
 /**
@@ -125,49 +137,4 @@ function hook_file_view($file, $view_mode, $langcode) {
  * @todo Add documentation.
  */
 function hook_file_view_alter($build, $type) {
-}
-
-/**
- * Defines bulk file operations.
- *
- * This hook enables modules to inject custom operations into the mass
- * operations dropdown found at admin/content/file, by associating a callback
- * function with the operation, which is called when the form is submitted.
- * The callback function receives one initial argument, which is an array of
- * the checked files.
- *
- * @return
- *  An associave array of operations keyed by machine name.
- *    - label: A string to show in the operations dropdown.
- *    - callback (string): A callback function to call for the operation. This
- *        function will be passed an array of file_ids which were selected.
- *    - confirm (boolean): Whether or not this operation requires a confirm form
- *        In the case where confirm is set to true, callback should be a function
- *        which can return a confirm form.
- *
- * @see hook_file_operation_info_alter()
- * @see file_entity_get_file_operation_info()
- */
-function hook_file_operation_info() {
-  $info['fluff'] = array(
-    'label' => t('Fluff selected files'),
-    'callback' => 'file_fluff_files',
-  );
-
-  return $info;
-}
-
-/**
- * Perform alterations on bulk file operations.
- *
- * @param $info
- *   Array of information on bulk file operations exposed by
- *   hook_file_operation_info() implementations.
- *
- * @see hook_file_operation_info()
- * @see file_entity_get_file_operation_info()
- */
-function hook_file_operation_info_alter(&$info) {
-  // Remove the 'Fluff selected files' operation.
-  unset($info['fluff']);
 }

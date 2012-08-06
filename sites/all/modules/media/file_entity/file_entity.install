@@ -63,38 +63,7 @@ function file_entity_schema() {
       ),
     ),
   );
-  $schema['image_dimensions'] = array(
-    'description' => 'Cache images dimensions.',
-    'fields' => array(
-      'fid' => array(
-        'description' => 'File ID.',
-        'type' => 'serial',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-      ),
-      'height' => array(
-        'description' => 'The height of the image in pixels.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-      ),
-      'width' => array(
-        'description' => 'The width of the image in pixels..',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-      ),
-    ),
-    'primary key' => array('fid'),
-    'foreign keys' => array(
-      'file_managed' => array(
-        'table' => 'file_managed',
-        'columns' => array('fid' => 'fid'),
-      ),
-    ),
-  );
+
   return $schema;
 }
 
@@ -107,11 +76,14 @@ function file_entity_schema_alter(&$schema) {
     'type' => 'varchar',
     'length' => 50,
     'not null' => TRUE,
-    'default' => '',
+    // If the FILE_TYPE_NONE constant ever changes, then change the value here
+    // too, and add an update function to deal with existing records. The
+    // constant isn't used here, because there may be cases where this function
+    // runs without the module file loaded.
+    'default' => 'undefined',
   );
   $schema['file_managed']['indexes']['file_type'] = array('type');
 }
-
 
 /**
  * Implements hook_install().
@@ -138,18 +110,6 @@ function file_entity_install() {
   }
   else {
     db_add_field('file_managed', 'type', $spec, $indexes_new);
-  }
-
-  // Update all files with empty types to use the first part of filemime.
-  db_update('file_managed')
-    ->expression('type', "SUBSTRING_INDEX(filemime, '/', 1)")
-    ->condition('type', '')
-    ->execute();
-
-  // Set permissions.
-  $roles = user_roles();
-  foreach ($roles as $rid => $role) {
-    user_role_grant_permissions($rid, array('view file'));
   }
 }
 
@@ -234,86 +194,20 @@ function file_entity_update_7001() {
 }
 
 /**
- * Empty update function to trigger a theme registry rebuild.
+ * Drupal 7.8 disallows empty string as the value for a bundle key, so update
+ * empty {file_managed}.type records to 'undefined' instead.
  */
-function file_entity_update_7100() { }
-
-/**
- * Update all files with empty types to use the first part of filemime.
- *
- * For example, an png image with filemime 'image/png' will be assigned a file
- * type of 'image'.
- */
-function file_entity_update_7101() {
+function file_entity_update_7002() {
   db_update('file_managed')
-    ->expression('type', "SUBSTRING_INDEX(filemime, '/', 1)")
+    // Using 'undefined' instead of FILE_TYPE_NONE, because update functions can
+    // run for disabled modules.
+    ->fields(array('type' => 'undefined'))
     ->condition('type', '')
     ->execute();
 }
 
 /**
- * Empty update function to trigger an entity cache rebuild.
+ * Register the new display formatter.
  */
-function file_entity_update_7102() {
-}
-
-/**
- * Empty update function.
- */
-function file_entity_update_7103() {
-}
-
-/**
- * Assign view file permission when updating without the Media module.
- */
-function file_entity_update_7104() {
-  if (!module_exists('media')) {
-    $roles = user_roles(FALSE, 'view file');
-    if (empty($roles)) {
-      // Set permissions.
-      $roles = user_roles();
-      foreach ($roles as $rid => $role) {
-        user_role_grant_permissions($rid, array('view file'));
-      }
-    }
-  }
-}
-
-/**
- * Create the {image_dimensions} database table.
- */
-function file_entity_update_7200() {
-  $schema['image_dimensions'] = array(
-    'description' => 'Cache images dimensions.',
-    'fields' => array(
-      'fid' => array(
-        'description' => 'File ID.',
-        'type' => 'serial',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-      ),
-      'height' => array(
-        'description' => 'The height of the image in pixels.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-      ),
-      'width' => array(
-        'description' => 'The width of the image in pixels..',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-      ),
-    ),
-    'primary key' => array('fid'),
-    'foreign keys' => array(
-      'file_managed' => array(
-        'table' => 'file_managed',
-        'columns' => array('fid' => 'fid'),
-      ),
-    ),
-  );
-  db_create_table('image_dimensions', $schema['image_dimensions']);
+function file_entity_update_7100() {
 }
