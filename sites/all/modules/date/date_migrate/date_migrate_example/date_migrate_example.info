@@ -21,9 +21,9 @@ package = "Features"
 project = "date_migrate_example"
 version = "7.x-2.0"
 
-; Information added by drupal.org packaging script on 2012-07-24
-version = "7.x-2.5+24-dev"
+; Information added by drupal.org packaging script on 2012-08-13
+version = "7.x-2.6"
 core = "7.x"
 project = "date"
-datestamp = "1343091119"
+datestamp = "1344850024"
 
