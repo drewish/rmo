@@ -5,10 +5,16 @@
  */
 class OgBehaviorHandler extends EntityReference_BehaviorHandler_Abstract {
 
+  /**
+   * Implements EntityReference_BehaviorHandler_Abstract::access().
+   */
   public function access($field, $instance) {
     return $field['settings']['handler'] == 'og';
   }
 
+  /**
+   * Implements EntityReference_BehaviorHandler_Abstract::load().
+   */
   public function load($entity_type, $entities, $field, $instances, $langcode, &$items) {
     // Get the OG memberships from the field.
     foreach ($entities as $entity) {
@@ -26,11 +32,17 @@ class OgBehaviorHandler extends EntityReference_BehaviorHandler_Abstract {
     }
   }
 
+  /**
+   * Implements EntityReference_BehaviorHandler_Abstract::insert().
+   */
   public function insert($entity_type, $entity, $field, $instance, $langcode, &$items) {
     $this->OgMembershipCrud($entity_type, $entity, $field, $instance, $langcode, $items);
     $items = array();
   }
 
+  /**
+   * Implements EntityReference_BehaviorHandler_Abstract::access().
+   */
   public function update($entity_type, $entity, $field, $instance, $langcode, &$items) {
     $this->OgMembershipCrud($entity_type, $entity, $field, $instance, $langcode, $items);
     $items = array();
@@ -65,6 +77,10 @@ class OgBehaviorHandler extends EntityReference_BehaviorHandler_Abstract {
    * Create, update or delete OG membership based on field values.
    */
   public function OgMembershipCrud($entity_type, $entity, $field, $instance, $langcode, &$items) {
+    if (!user_access('administer group') && !field_access('edit', $field, $entity_type, $entity)) {
+      // User has no access to field.
+      return;
+    }
     $diff = $this->groupAudiencegetDiff($entity_type, $entity, $field, $instance, $langcode, $items);
     if (!$diff) {
       return;
@@ -99,10 +115,6 @@ class OgBehaviorHandler extends EntityReference_BehaviorHandler_Abstract {
    */
   public function groupAudiencegetDiff($entity_type, $entity, $field, $instance, $langcode, $items) {
     $return = FALSE;
-
-    if (!empty($field['settings']['handler_settings']['primary_field'])) {
-      return;
-    }
 
     $field_name = $field['field_name'];
     $wrapper = entity_metadata_wrapper($entity_type, $entity);
