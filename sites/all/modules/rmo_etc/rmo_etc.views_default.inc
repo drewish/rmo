@@ -64,12 +64,41 @@ function rmo_etc_views_default_views() {
   $handler->display->display_options['style_options']['override'] = 1;
   $handler->display->display_options['style_options']['sticky'] = 0;
   $handler->display->display_options['style_options']['empty_table'] = 0;
-  /* Field: Field: Title */
+  /* Field: File: Song */
+  $handler->display->display_options['fields']['field_song']['id'] = 'field_song';
+  $handler->display->display_options['fields']['field_song']['table'] = 'field_data_field_song';
+  $handler->display->display_options['fields']['field_song']['field'] = 'field_song';
+  $handler->display->display_options['fields']['field_song']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_song']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_song']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_song']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_song']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_song']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_song']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_song']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_song']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_song']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_song']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_song']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_song']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_song']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_song']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_song']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_song']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_song']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_song']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_song']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_song']['settings'] = array(
+    'link' => 1,
+  );
+  $handler->display->display_options['fields']['field_song']['field_api_classes'] = 0;
+  /* Field: File: Title */
   $handler->display->display_options['fields']['field_title']['id'] = 'field_title';
   $handler->display->display_options['fields']['field_title']['table'] = 'field_data_field_title';
   $handler->display->display_options['fields']['field_title']['field'] = 'field_title';
   $handler->display->display_options['fields']['field_title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_title']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_title']['alter']['make_link'] = 1;
+  $handler->display->display_options['fields']['field_title']['alter']['path'] = 'node/[field_song]';
   $handler->display->display_options['fields']['field_title']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['field_title']['alter']['external'] = 0;
   $handler->display->display_options['fields']['field_title']['alter']['replace_spaces'] = 0;
@@ -114,7 +143,7 @@ function rmo_etc_views_default_views() {
     'prefix_suffix' => 1,
   );
   $handler->display->display_options['fields']['field_track']['field_api_classes'] = 0;
-  /* Field: File: Rendered File */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['rendered_entity']['id'] = 'rendered_entity';
   $handler->display->display_options['fields']['rendered_entity']['table'] = 'views_entity_file';
   $handler->display->display_options['fields']['rendered_entity']['field'] = 'rendered_entity';
@@ -137,9 +166,6 @@ function rmo_etc_views_default_views() {
   $handler->display->display_options['fields']['rendered_entity']['hide_empty'] = 0;
   $handler->display->display_options['fields']['rendered_entity']['empty_zero'] = 0;
   $handler->display->display_options['fields']['rendered_entity']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['rendered_entity']['link_to_entity'] = 1;
-  $handler->display->display_options['fields']['rendered_entity']['display'] = 'view';
-  $handler->display->display_options['fields']['rendered_entity']['view_mode'] = 'media_preview';
   /* Sort criterion: File: Track (field_track) */
   $handler->display->display_options['sorts']['field_track_value']['id'] = 'field_track_value';
   $handler->display->display_options['sorts']['field_track_value']['table'] = 'field_data_field_track';
@@ -389,20 +415,6 @@ function rmo_etc_views_default_views() {
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   $handler->display->display_options['filters']['type']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Status (field_song_status) */
-  $handler->display->display_options['filters']['field_song_status_value']['id'] = 'field_song_status_value';
-  $handler->display->display_options['filters']['field_song_status_value']['table'] = 'field_data_field_song_status';
-  $handler->display->display_options['filters']['field_song_status_value']['field'] = 'field_song_status_value';
-  $handler->display->display_options['filters']['field_song_status_value']['value'] = array(
-    'active' => 'active',
-  );
-  $handler->display->display_options['filters']['field_song_status_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_song_status_value']['expose']['operator_id'] = 'field_song_status_value_op';
-  $handler->display->display_options['filters']['field_song_status_value']['expose']['label'] = 'Status';
-  $handler->display->display_options['filters']['field_song_status_value']['expose']['operator'] = 'field_song_status_value_op';
-  $handler->display->display_options['filters']['field_song_status_value']['expose']['identifier'] = 'field_song_status_value';
-  $handler->display->display_options['filters']['field_song_status_value']['expose']['remember'] = 1;
-  $handler->display->display_options['filters']['field_song_status_value']['expose']['reduce'] = 0;
 
   /* Display: Page - All */
   $handler = $view->new_display('page', 'Page - All', 'page_5');

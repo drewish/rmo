@@ -10,7 +10,7 @@
 function rmo_etc_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-committee-field_description'
+  // Exported field: 'node-committee-field_description'.
   $fields['node-committee-field_description'] = array(
     'field_config' => array(
       'active' => '1',
@@ -31,6 +31,7 @@ function rmo_etc_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'allowed_values' => '',
@@ -146,7 +147,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-committee-group_group'
+  // Exported field: 'node-committee-group_group'.
   $fields['node-committee-group_group'] = array(
     'field_config' => array(
       'active' => '1',
@@ -160,6 +161,7 @@ function rmo_etc_field_default_fields() {
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'no_ui' => TRUE,
       'settings' => array(
@@ -235,7 +237,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-committee-og_description'
+  // Exported field: 'node-committee-og_description'.
   $fields['node-committee-og_description'] = array(
     'field_config' => array(
       'active' => '1',
@@ -258,6 +260,7 @@ function rmo_etc_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => 255,
@@ -310,7 +313,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-committee-og_roles_permissions'
+  // Exported field: 'node-committee-og_roles_permissions'.
   $fields['node-committee-og_roles_permissions'] = array(
     'field_config' => array(
       'active' => '1',
@@ -324,6 +327,7 @@ function rmo_etc_field_default_fields() {
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'no_ui' => TRUE,
       'settings' => array(
@@ -395,7 +399,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-committee_post-body'
+  // Exported field: 'node-committee_post-body'.
   $fields['node-committee_post-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -410,6 +414,7 @@ function rmo_etc_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -466,7 +471,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-committee_post-og_group_ref'
+  // Exported field: 'node-committee_post-og_group_ref'.
   $fields['node-committee_post-og_group_ref'] = array(
     'field_config' => array(
       'active' => '1',
@@ -487,6 +492,7 @@ function rmo_etc_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'og',
@@ -561,7 +567,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-monthly_meeting-field_agenda'
+  // Exported field: 'node-monthly_meeting-field_agenda'.
   $fields['node-monthly_meeting-field_agenda'] = array(
     'field_config' => array(
       'active' => '1',
@@ -582,6 +588,7 @@ function rmo_etc_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'allowed_values' => '',
@@ -696,7 +703,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-monthly_meeting-field_date'
+  // Exported field: 'node-monthly_meeting-field_date'.
   $fields['node-monthly_meeting-field_date'] = array(
     'field_config' => array(
       'active' => '1',
@@ -706,6 +713,7 @@ function rmo_etc_field_default_fields() {
       'field_name' => 'field_date',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'date',
       'settings' => array(
         'granularity' => array(
@@ -828,7 +836,6 @@ function rmo_etc_field_default_fields() {
             'multiple_from' => '',
             'multiple_number' => '',
             'multiple_to' => '',
-            'show_repeat_rule' => 'show',
           ),
           'type' => 'date_default',
           'weight' => '1',
@@ -885,7 +892,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-monthly_meeting-field_facilitator'
+  // Exported field: 'node-monthly_meeting-field_facilitator'.
   $fields['node-monthly_meeting-field_facilitator'] = array(
     'field_config' => array(
       'active' => '1',
@@ -906,6 +913,7 @@ function rmo_etc_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'allowed_values' => '',
@@ -1020,7 +1028,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-monthly_meeting-field_location'
+  // Exported field: 'node-monthly_meeting-field_location'.
   $fields['node-monthly_meeting-field_location'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1041,6 +1049,7 @@ function rmo_etc_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'allowed_values' => '',
@@ -1155,7 +1164,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-monthly_meeting-field_meeting_minutes'
+  // Exported field: 'node-monthly_meeting-field_meeting_minutes'.
   $fields['node-monthly_meeting-field_meeting_minutes'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1176,6 +1185,7 @@ function rmo_etc_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'allowed_values' => '',
@@ -1249,9 +1259,8 @@ function rmo_etc_field_default_fields() {
         ),
         'teaser' => array(
           'label' => 'above',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
+          'type' => 'hidden',
           'weight' => '5',
         ),
         'token' => array(
@@ -1291,7 +1300,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-practice_notes-field_date'
+  // Exported field: 'node-practice_notes-field_date'.
   $fields['node-practice_notes-field_date'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1301,6 +1310,7 @@ function rmo_etc_field_default_fields() {
       'field_name' => 'field_date',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'date',
       'settings' => array(
         'granularity' => array(
@@ -1423,7 +1433,6 @@ function rmo_etc_field_default_fields() {
             'multiple_from' => '',
             'multiple_number' => '',
             'multiple_to' => '',
-            'show_repeat_rule' => 'show',
           ),
           'type' => 'date_default',
           'weight' => '1',
@@ -1480,7 +1489,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-practice_notes-field_facilitator'
+  // Exported field: 'node-practice_notes-field_facilitator'.
   $fields['node-practice_notes-field_facilitator'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1501,6 +1510,7 @@ function rmo_etc_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'allowed_values' => '',
@@ -1615,7 +1625,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-practice_notes-field_practicenotes'
+  // Exported field: 'node-practice_notes-field_practicenotes'.
   $fields['node-practice_notes-field_practicenotes'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1636,6 +1646,7 @@ function rmo_etc_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'allowed_values' => '',
@@ -1708,9 +1719,8 @@ function rmo_etc_field_default_fields() {
         ),
         'teaser' => array(
           'label' => 'above',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
+          'type' => 'hidden',
           'weight' => '4',
         ),
         'token' => array(
@@ -1750,7 +1760,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-song-field_arrangement_file'
+  // Exported field: 'node-song-field_arrangement_file'.
   $fields['node-song-field_arrangement_file'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1771,6 +1781,7 @@ function rmo_etc_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'file',
       'settings' => array(
         'description_field' => '1',
@@ -1841,6 +1852,12 @@ function rmo_etc_field_default_fields() {
           'type' => 'file_default',
           'weight' => '6',
         ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'token' => array(
           'label' => 'above',
           'moduke' => 'file',
@@ -1880,7 +1897,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-song-field_choreography_notes'
+  // Exported field: 'node-song-field_choreography_notes'.
   $fields['node-song-field_choreography_notes'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1901,6 +1918,7 @@ function rmo_etc_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'allowed_values' => '',
@@ -2015,7 +2033,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-song-field_description'
+  // Exported field: 'node-song-field_description'.
   $fields['node-song-field_description'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2036,6 +2054,7 @@ function rmo_etc_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'allowed_values' => '',
@@ -2153,7 +2172,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-song-field_midi'
+  // Exported field: 'node-song-field_midi'.
   $fields['node-song-field_midi'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2174,6 +2193,7 @@ function rmo_etc_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'file',
       'settings' => array(
         'description_field' => '0',
@@ -2244,6 +2264,12 @@ function rmo_etc_field_default_fields() {
           'type' => 'file_default',
           'weight' => '7',
         ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'token' => array(
           'label' => 'above',
           'moduke' => 'file',
@@ -2283,7 +2309,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-song-field_notes'
+  // Exported field: 'node-song-field_notes'.
   $fields['node-song-field_notes'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2304,6 +2330,7 @@ function rmo_etc_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'allowed_values' => '',
@@ -2418,7 +2445,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-song-field_song_audio'
+  // Exported field: 'node-song-field_song_audio'.
   $fields['node-song-field_song_audio'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2439,11 +2466,12 @@ function rmo_etc_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'file',
       'settings' => array(
         'description_field' => '1',
         'display_default' => 1,
-        'display_field' => '0',
+        'display_field' => 0,
         'uri_scheme' => 'public',
       ),
       'translatable' => '0',
@@ -2460,8 +2488,8 @@ function rmo_etc_field_default_fields() {
           'label' => 'hidden',
           'module' => 'mediaelement',
           'settings' => array(
-            'controls' => TRUE,
-            'download_link' => FALSE,
+            'controls' => 1,
+            'download_link' => 1,
             'download_text' => 'Download',
             'height' => '30',
             'preload' => 'auto',
@@ -2534,38 +2562,44 @@ function rmo_etc_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'field_song_audio',
       'label' => 'Listen',
-      'required' => FALSE,
+      'required' => 0,
       'settings' => array(
         'description_field' => 0,
         'file_directory' => 'songs/listen',
         'file_extensions' => 'mp3 m4a',
-        'max_filesize' => '6M',
+        'max_filesize' => '',
         'user_register_form' => FALSE,
       ),
       'weight' => '0',
       'widget' => array(
-        'active' => '1',
+        'active' => 1,
         'module' => 'file',
         'settings' => array(
-          'filefield_source_attach_absolute' => '0',
-          'filefield_source_attach_mode' => 'move',
-          'filefield_source_attach_path' => 'file_attach',
-          'filefield_source_autocomplete' => '0',
           'filefield_sources' => array(
-            'attach' => 0,
-            'reference' => 'reference',
-            'remote' => 'remote',
+            'filefield_sources' => array(
+              'attach' => 0,
+              'reference' => 0,
+              'remote' => 'remote',
+            ),
+            'source_attach' => array(
+              'absolute' => NULL,
+              'attach_mode' => 'copy',
+              'path' => '',
+            ),
+            'source_reference' => array(
+              'autocomplete' => '0',
+            ),
           ),
           'progress_indicator' => 'bar',
         ),
         'type' => 'file_generic',
-        'weight' => '0',
+        'weight' => 0,
       ),
       'widget_type' => 'filefield_widget',
     ),
   );
 
-  // Exported field: 'node-song-field_song_original_file'
+  // Exported field: 'node-song-field_song_original_file'.
   $fields['node-song-field_song_original_file'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2586,6 +2620,7 @@ function rmo_etc_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'file',
       'settings' => array(
         'description_field' => '1',
@@ -2663,6 +2698,12 @@ function rmo_etc_field_default_fields() {
           'type' => 'file_default',
           'weight' => '5',
         ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'token' => array(
           'label' => 'above',
           'moduke' => 'file',
@@ -2702,7 +2743,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-song-field_song_sheet_music'
+  // Exported field: 'node-song-field_song_sheet_music'.
   $fields['node-song-field_song_sheet_music'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2723,6 +2764,7 @@ function rmo_etc_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'file',
       'settings' => array(
         'description_field' => '1',
@@ -2793,6 +2835,12 @@ function rmo_etc_field_default_fields() {
           'type' => 'file_default',
           'weight' => '8',
         ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'token' => array(
           'label' => 'above',
           'moduke' => 'file',
@@ -2836,7 +2884,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-song-field_song_source'
+  // Exported field: 'node-song-field_song_source'.
   $fields['node-song-field_song_source'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2857,6 +2905,7 @@ function rmo_etc_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'allowed_values' => '',
@@ -2971,7 +3020,7 @@ function rmo_etc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-song-field_song_status'
+  // Exported field: 'node-song-field_song_status'.
   $fields['node-song-field_song_status'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2985,6 +3034,7 @@ function rmo_etc_field_default_fields() {
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
