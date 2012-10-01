@@ -6,6 +6,7 @@ php = 5.2.4
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = field_collection
+dependencies[] = field_collection_table
 dependencies[] = field_sql_storage
 dependencies[] = image
 dependencies[] = node
