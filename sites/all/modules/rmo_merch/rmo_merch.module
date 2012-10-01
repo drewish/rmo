@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the RMO Merch feature.
+ */
+
+include_once 'rmo_merch.features.inc';
