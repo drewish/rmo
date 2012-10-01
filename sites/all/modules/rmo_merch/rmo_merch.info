@@ -2,6 +2,7 @@ name = RMO Merch
 description = Stuff for the merchandise page.
 core = 7.x
 package = RMO
+php = 5.2.4
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = field_collection
