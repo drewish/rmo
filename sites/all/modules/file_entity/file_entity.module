@@ -122,7 +122,7 @@ function file_entity_menu() {
   $items['file/add'] = array(
     'title' => 'Add file',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('file_entity_add_upload'),
+    'page arguments' => array('file_entity_add_upload', array()),
     'access arguments' => array('administer files'),
     'file' => 'file_entity.pages.inc',
   );
@@ -448,19 +448,17 @@ function file_entity_file_formatter_info() {
 
   // Allow file field formatters to be reused for displaying the file entity's
   // file pseudo-field.
-  if (module_exists('file')) {
-    foreach (field_info_formatter_types() as $field_formatter_type => $field_formatter_info) {
-      if (in_array('file', $field_formatter_info['field types'])) {
-        $formatters['file_field_' . $field_formatter_type] = array(
-          'label' => $field_formatter_info['label'],
-          'view callback' => 'file_entity_file_formatter_file_field_view',
+  foreach (field_info_formatter_types() as $field_formatter_type => $field_formatter_info) {
+    if (in_array('file', $field_formatter_info['field types'])) {
+      $formatters['file_field_' . $field_formatter_type] = array(
+        'label' => $field_formatter_info['label'],
+        'view callback' => 'file_entity_file_formatter_file_field_view',
+      );
+      if (!empty($field_formatter_info['settings'])) {
+        $formatters['file_field_' . $field_formatter_type] += array(
+          'default settings' => $field_formatter_info['settings'],
+          'settings callback' => 'file_entity_file_formatter_file_field_settings',
         );
-        if (isset($field_formatter_info['settings'])) {
-          $formatters['file_field_' . $field_formatter_type] += array(
-            'default settings' => $field_formatter_info['settings'],
-            'settings callback' => 'file_entity_file_formatter_file_field_settings',
-          );
-        }
       }
     }
   }
@@ -697,10 +695,13 @@ function template_preprocess_file_entity(&$variables) {
   $variables['label']     = check_plain($label);
   $variables['page']      = $view_mode == 'full' && file_is_page($file);
 
-  // Disable the file name from being displayed as the title until we can
-  // figure out a better way to control this.
+  // Hide the file name from being displayed until we can figure out a better
+  // way to control this. We cannot simply not output the title since
+  // contextual links require $title_suffix to be output in the template.
   // @see http://drupal.org/node/1245266
-  $variables['page'] = TRUE;
+  if (!$variables['page']) {
+    $variables['title_attributes_array']['class'][] = 'element-invisible';
+  }
 
   // Flatten the file object's member fields.
   $variables = array_merge((array) $file, $variables);
