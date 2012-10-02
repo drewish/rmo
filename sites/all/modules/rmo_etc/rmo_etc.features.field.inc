@@ -544,6 +544,17 @@ function rmo_etc_field_default_fields() {
       'label' => 'Groups audience - Node',
       'required' => FALSE,
       'settings' => array(
+        'behaviors' => array(
+          'og_widget' => array(
+            'admin' => array(
+              'widget_type' => 'entityreference_autocomplete',
+            ),
+            'default' => array(
+              'widget_type' => 'options_select',
+            ),
+            'status' => TRUE,
+          ),
+        ),
         'user_register_form' => FALSE,
       ),
       'view modes' => array(
@@ -559,10 +570,10 @@ function rmo_etc_field_default_fields() {
         ),
       ),
       'widget' => array(
-        'module' => 'options',
+        'module' => 'og',
         'settings' => array(),
-        'type' => 'options_select',
-        'weight' => 31,
+        'type' => 'og_complex',
+        'weight' => 32,
       ),
     ),
   );
