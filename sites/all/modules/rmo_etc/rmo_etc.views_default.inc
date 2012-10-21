@@ -30,8 +30,7 @@ function rmo_etc_views_default_views() {
   $handler->display->display_options['cache']['output_lifespan'] = '3600';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'filename' => 'filename',
@@ -278,7 +277,7 @@ function rmo_etc_views_default_views() {
     'height' => '30',
     'download_link' => 0,
     'download_text' => 'Download',
-    'preload' => 'metadata',
+    'preload' => 'none',
   );
   $handler->display->display_options['fields']['field_song_audio']['delta_limit'] = '1';
   $handler->display->display_options['fields']['field_song_audio']['delta_offset'] = '0';
